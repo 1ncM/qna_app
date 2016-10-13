@@ -11,13 +11,17 @@ feature 'Create question', %q{
 
     visit questions_path
     click_on 'Ask question'
-    fill_in :title, with: 'text title'
-    fill_in :body, with: 'text body'
+    fill_in 'Title', with: 'text title'
+    fill_in 'Body', with: 'text body'
     click_on 'Post your question'
 
-    expect(current_path).to eq questions_path
     expect(page).to have_content 'text title'
     expect(page).to have_content 'text body'
   end
 
+  scenario 'Non-Authenticated user creates question' do
+    visit questions_path
+    click_on 'Ask question'
+    expect(page).to have_content 'You need to sign in or sign up before continuing.'
+  end
 end
