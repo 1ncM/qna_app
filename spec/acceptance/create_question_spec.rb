@@ -14,7 +14,7 @@ feature 'Create question', %q{
     fill_in 'Title', with: 'text title'
     fill_in 'Body', with: 'text body'
     click_on 'Post your question'
-
+    
     expect(page).to have_content 'text title'
     expect(page).to have_content 'text body'
   end
