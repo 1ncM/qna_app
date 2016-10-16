@@ -11,7 +11,6 @@ feature 'View question and answers', %q{
     a1, a2 = create_list(:answer, 2, question: question)
 
     visit question_path(question)
-save_and_open_page
     expect(page).to have_content question.title
     expect(page).to have_content question.body
     expect(page).to have_content a1.body
