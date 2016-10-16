@@ -1,2 +1,17 @@
 = @question.title
+p
 = @question.body
+
+- @question.answers.each do |answer|
+  ul
+  li= answer.body
+
+- if user_signed_in?
+  h1 Your answer:
+  = form_for [@question,Answer.new] do |f|
+    = f.label :body
+    = f.text_area :body
+    p
+    = f.submit 'Post your answer'
+- else 
+  h2 Please sign_in/sign_up
