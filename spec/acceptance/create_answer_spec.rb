@@ -18,6 +18,13 @@ feature 'Create answer for question', %q{
     expect(page).to have_content 'Answer body'
   end
 
+  scenario 'Authenticated user submit empty answer for the question' do
+    sign_in(user)
+    visit question_path(question)
+    fill_in 'Body', with: ''
+    expect(current_path).to eq question_path(question)
+  end
+
   scenario 'Non-Authenticated user can not create answer for question' do
     visit question_path(question)
     expect(page).to_not have_link 'Post your answer'

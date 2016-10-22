@@ -51,7 +51,7 @@ RSpec.describe AnswersController, type: :controller do
         sign_out(@user)
         sign_in create(:user)
       end
-
+      
       it 'does not delete answer' do
         expect { delete :destroy, params: { id: @answer, question_id: @question }}.to_not change(Answer, :count)
       end
