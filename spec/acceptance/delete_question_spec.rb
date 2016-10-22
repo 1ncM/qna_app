@@ -23,7 +23,7 @@ feature 'author can delete your question', %q{
     expect(page).to_not have_content @question.title
   end 
 
-  scenario 'Asker can not delete question asked by other user' do
+  scenario 'Authenticated user can not delete question asked by other user' do
     sign_out
     sign_in(create(:user))
     visit question_path(@question)
