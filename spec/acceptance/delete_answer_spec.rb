@@ -7,7 +7,7 @@ feature 'Delete answer', %q{
 } do
   given!(:user) { create(:user) }
 
-  before do
+  before(:each) do
     sign_in(user)
     @question = create((:question), user: user)
     @answer = create(:answer, question: @question, user: user)
