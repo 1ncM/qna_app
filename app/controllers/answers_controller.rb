@@ -8,7 +8,8 @@ class AnswersController < ApplicationController
     if @answer.save
       redirect_to @question
     else
-      render :new
+      flash[:notice] = "Field 'Body' must not be empty"
+      redirect_to question_path(@answer.question)
     end
   end
 

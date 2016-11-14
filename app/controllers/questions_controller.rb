@@ -19,6 +19,7 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to @question
     else
+      flash[:notice] = "The form must not be empty"
       render :new
     end
   end

@@ -22,7 +22,9 @@ feature 'Create answer for question', %q{
     sign_in(user)
     visit question_path(question)
     fill_in 'Body', with: ''
+    click_on 'Post your answer'
     expect(current_path).to eq question_path(question)
+    expect(page).to have_content "Field 'Body' must not be empty"
   end
 
   scenario 'Non-Authenticated user can not create answer for question' do
