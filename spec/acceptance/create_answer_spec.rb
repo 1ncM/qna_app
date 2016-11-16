@@ -15,7 +15,9 @@ feature 'Create answer for question', %q{
     click_on 'Post your answer'
 
     expect(current_path).to eq question_path(question)
-    expect(page).to have_content 'Answer body'
+    within '.answers' do
+      expect(page).to have_content 'Answer body'
+    end
   end
 
   scenario 'Authenticated user submit empty answer for the question' do

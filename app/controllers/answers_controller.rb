@@ -3,13 +3,13 @@ class AnswersController < ApplicationController
   before_action :set_question, only: [:create]
 
   def create
-    @answer = @question.answers.new(answer_params)
+    @answer = @question.answers.build(answer_params)
     @answer.user = current_user
     if @answer.save
       redirect_to @question
     else
       flash[:notice] = "Field 'Body' must not be empty"
-      redirect_to question_path(@answer.question)
+      redirect_to @question
     end
   end
 
