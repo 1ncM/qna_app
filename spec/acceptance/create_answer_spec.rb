@@ -8,7 +8,7 @@ feature 'Create answer for question', %q{
   given(:user) { create(:user) }
   given(:question) { create(:question) }
 
-  scenario 'Authenticated user can create answer for question' do
+  scenario 'Authenticated user can create answer for question', js: true do
     sign_in(user)
     visit question_path(question)
     fill_in 'Body', with: 'Answer body'

@@ -37,11 +37,13 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'selenium-webdriver', '~> 2.53.4'
 end
 
 group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
+  gem "capybara-webkit"
 end
 
 group :development do
