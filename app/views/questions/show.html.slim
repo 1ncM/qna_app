@@ -6,9 +6,7 @@ p= @question.body
   = link_to 'Delete question', @question, method: :delete, data: { confirm: "Are you sure" }
 
 .answers
-  = render 'answers'
-  / = link_to 'Delete answer', answer, method: :delete, data: { confirm: "Delete your answer?" } if user_signed_in? && current_user.author_of?(answer)
-  / p
+  = render "answers"
 
 - if user_signed_in?
   h1 Create your answer:

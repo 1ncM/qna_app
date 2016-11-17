@@ -1,0 +1,4 @@
+= answer.body
+p
+- if user_signed_in? && current_user.author_of?(answer)
+  = link_to 'Delete answer', answer, method: :delete, data: { confirm: "Delete your answer?" } 
