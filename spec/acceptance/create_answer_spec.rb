@@ -25,11 +25,11 @@ feature 'Create answer for question', %q{
     visit question_path(question)
     fill_in 'Body', with: ''
     click_on 'Post your answer'
-    # expect(current_path).to eq question_path(question)
-    # expect(question.answers.count).to eq 0
+    expect(current_path).to eq question_path(question)
+    expect(page.driver.browser.switch_to.alert.text).to eq "You can not post empty answer!"
   end
 
-  scenario 'Non-Authenticated user can not create answer for question' do
+  scenario 'Non-Authenticated user can not create answer for question', js: true do
     visit question_path(question)
     expect(page).to_not have_link 'Post your answer'
   end
