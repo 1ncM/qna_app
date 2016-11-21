@@ -23,10 +23,9 @@ feature 'Create answer for question', %q{
   scenario 'Authenticated user submit empty answer for the question', js: true do
     sign_in(user)
     visit question_path(question)
-    fill_in 'Body', with: ''
     click_on 'Post your answer'
     expect(current_path).to eq question_path(question)
-    expect(page.driver.browser.switch_to.alert.text).to eq "You can not post empty answer!"
+    expect(page).to have_content "Body can't be blank"
   end
 
   scenario 'Non-Authenticated user can not create answer for question', js: true do

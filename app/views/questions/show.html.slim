@@ -12,8 +12,8 @@ p= @question.body
   h1 Create your answer:
   = form_for [@question,@answer], remote: true do |f|
     = f.label :body
+    .answer-errors
     = f.text_area :body
-    p
     = f.submit 'Post your answer'
 - else 
   h4 Please sign_in/sign_up
