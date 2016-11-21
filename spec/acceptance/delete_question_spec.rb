@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative 'acceptance_helper'
 
 feature 'author can delete your question', %q{
   In order to don't be ashamed for asked question

@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative 'acceptance_helper'
 
 feature 'view questions list', %{
   In order to view the whole question and existing answers to it
