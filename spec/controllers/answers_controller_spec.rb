@@ -27,6 +27,40 @@ RSpec.describe AnswersController, type: :controller do
     end
   end
 
+  describe "PATCH #update" do
+
+    describe 'author update your answer' do
+      sign_in_user
+      let!(:question) { create(:question) }
+      let!(:answer) { create(:answer, question: question, user: @user)}
+
+      context 'with valid attributes' do
+
+        it 'assings the requested answer to @answer' do
+          patch :update, params: { id: answer, answer: attributes_for(:answer), question_id: question, user_id: @user, format: :js }
+          expect(assigns(:answer)).to eq answer
+        end
+
+        it 'changes answer attributes' do
+          patch :update, params: { id: answer, answer: { body: "other answer" }, question_id: question, user_id: @user, format: :js }
+          answer.reload
+          expect(answer.body).to eq "other answer"
+        end
+
+        it 'render update template' do
+          patch :update, params: { id: answer, answer: attributes_for(:answer), question_id: question, user_id: @user, format: :js }
+          expect(response).to render_template :update
+        end
+
+      end
+
+      context 'with invalid attributes' do
+      end
+
+    end
+
+  end
+
   describe "DELETE #destroy" do
     sign_in_user
 

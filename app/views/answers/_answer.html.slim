@@ -3,4 +3,11 @@
   = answer.body
   p
   - if user_signed_in? && current_user.author_of?(answer)
-    = link_to 'Delete answer', answer, method: :delete, data: { confirm: "Delete your answer?" } 
+    = link_to 'Delete answer', answer, method: :delete, data: { confirm: "Delete your answer?" }
+    p
+    = link_to 'Edit', question_path(answer.question)
+    p
+    = form_for answer, remote: true do |f|
+      = f.label :body
+      = f.text_area :body
+      = f.submit 'Save'
