@@ -18,19 +18,21 @@ end
 
 scenario 'Authenticated user try edit your answer', js: true do
   sign_in user
-
   visit question_path(question)
-
+  expect(page).to have_link 'Edit'
+  click_on 'Edit'
   within '.answers' do
-    expect(page).to have_link 'Edit'
-    fill_in 'Body', with: 'other answer'
+    fill_in 'Answer', with: 'edited answer'
     click_on 'Save'
     expect(current_path).to eq question_path(answer.question)
-    expect(page).to have_content 'other answer'
+    expect(page).to_not have_content answer.body
+    expect(page).to have_content 'edited answer'
+    expect(page).to_not have_selector 'textarea'
   end
 
-  # expect(current_path).to eq question_path(question)
-  # expect(page).to have_content 'other answer' 
+end
+
+scenario 'Authenticated user try edit other user answer', js: true do
 end
 
 end 

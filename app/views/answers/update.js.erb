@@ -3,5 +3,5 @@
     $('.answer-errors').html('<%= j message %>');
   <% end %>
 <% else %>
-  $('.answers').append('<%= j render @answer %>');
+  $('.answers').html('<%= j render 'questions/answers' %>');
 <% end %>
