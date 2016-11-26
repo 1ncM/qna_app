@@ -11,7 +11,6 @@ feature 'Create answer for question', %q{
   scenario 'Authenticated user can create answer for question', js: true do
     sign_in(user)
     visit question_path(question)
-    save_and_open_page
     fill_in 'Answer', with: 'Answer body'
     click_on 'Post your answer'
 

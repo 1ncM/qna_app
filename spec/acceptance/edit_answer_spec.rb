@@ -33,6 +33,9 @@ scenario 'Authenticated user try edit your answer', js: true do
 end
 
 scenario 'Authenticated user try edit other user answer', js: true do
+  sign_in(create(:user))
+  visit question_path(question)
+  expect(page).to_not have_link 'Edit'
 end
 
 end 
