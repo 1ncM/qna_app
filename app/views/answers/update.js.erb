@@ -3,5 +3,7 @@
     $('.answer-errors').html('<%= j message %>');
   <% end %>
 <% else %>
-  $('.answers').html('<%= j render 'questions/answers' %>');
+  $('#answer_'+'<%= @answer.id %>').find('.answer-body').html('<%= @answer.body %>');
+  $('form#edit-answer-' + <%= @answer.id %>).hide();
+  $('#answer_' + '<%= @answer.id %>').find('.edit-answer-link').show();
 <% end %>
