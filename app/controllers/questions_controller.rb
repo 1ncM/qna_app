@@ -25,16 +25,8 @@ class QuestionsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
   def update
     @question.update(question_params)
-    if @question.save
-      redirect_to @question
-    else
-      render :edit
-    end
   end
 
   def destroy
