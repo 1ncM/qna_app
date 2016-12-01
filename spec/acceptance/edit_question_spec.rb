@@ -28,4 +28,14 @@ feature 'Edit question', %q{
     end
   end 
 
+  scenario 'Authenticated user try edit question other user', js: true do
+    sign_in(create(:user))
+    visit question_path(question)
+    expect(page).to_not have_link 'Edit question'
+  end 
+
+  scenario 'Unauthenticated user try edit question', js: true do
+    visit question_path(question)
+    expect(page).to_not have_link 'Edit question'
+  end 
 end
