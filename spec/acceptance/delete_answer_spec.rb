@@ -13,7 +13,7 @@ feature 'Delete answer', %q{
     @answer = create(:answer, question: @question, user: user)
   end
 
-  scenario 'Asker can delete your answer' do
+  scenario 'Asker can delete your answer', js: true do
     visit question_path(@question)
     click_on "Delete answer"
     expect(current_path).to eq question_path(@question)
@@ -21,7 +21,7 @@ feature 'Delete answer', %q{
     expect(page).to_not have_link 'Delete answer'
   end
 
-  scenario 'Authenticated user can not delete answer asked by other user' do
+  scenario 'Authenticated user can not delete answer asked by other user', js: true do
     sign_out
     sign_in(create(:user))
     visit question_path(@question)
@@ -29,7 +29,7 @@ feature 'Delete answer', %q{
     expect(page).to_not have_link 'Delete answer'
   end
 
-  scenario 'Non-authenticated user can not delete answer' do
+  scenario 'Non-authenticated user can not delete answer', js: true do
     sign_out
     visit question_path(@question)
     expect(page).to have_content(@answer.body)
