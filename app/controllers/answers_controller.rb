@@ -18,6 +18,7 @@ class AnswersController < ApplicationController
   end
 
   def accept
+    @answer = Answer.find(params[:id])
     @question = @answer.question
     @answer.mark_as_accepted
   end

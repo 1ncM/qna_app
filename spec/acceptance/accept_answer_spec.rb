@@ -21,7 +21,12 @@ feature 'Select Best Answer', %q{
     end
 
     scenario 'mark accepted answer', js: true do
-
+      visit question_path(@question)
+      expect(page).to have_css('.accept-link', count: 3)
+      expect(page).to_not have_css('.accepted-link')
+      first(:xpath, '//*[@class="accept-link"]').click
+      expect(page).to have_css('.accept-link', count: 2)
+      expect(page).to have_css('.accepted-link', count: 1)
     end
 
     scenario 'can unmark accepted answer', js: true do
