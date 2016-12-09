@@ -17,6 +17,11 @@ class AnswersController < ApplicationController
     @answer.destroy if current_user.author_of?(@answer)
   end
 
+  def accept
+    @question = @answer.question
+    @answer.mark_as_accepted
+  end
+
   private
 
   def set_question
