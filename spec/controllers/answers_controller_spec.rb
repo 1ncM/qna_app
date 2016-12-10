@@ -27,6 +27,39 @@ RSpec.describe AnswersController, type: :controller do
     end
   end
 
+  describe 'GET #accept' do
+    sign_in_user
+
+    before do
+      @question = create(:question, user: @user)
+      @answer = create(:answer, question: @question, user: @user)
+    end
+
+    context 'author of question' do
+
+      before do
+        @accepted = @answer.accepted
+        xhr :get, :accept, params: { id: @answer.id, question_id: @question.id, format: :js }
+      end
+
+      it 'assigns the requested answer to @answer' do
+        expect(assigns(:answer)).to eq @answer
+      end
+
+      it 'render create template' do
+
+      end
+    end
+
+    context 'with invalid attributes' do
+      it 'does not save the new answer in the database' do
+      end
+
+      it 'render create template' do
+      end      
+    end
+  end
+
   describe "PATCH #update" do
 
     describe 'author update your answer' do

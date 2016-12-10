@@ -1,32 +1,30 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, only: [:create, :destroy]
-  before_action :set_question, only: [:create]
+  before_action :set_answer, only: [:update, :destroy, :accept]
 
   def create
+    @question = Question.find(params[:question_id])    
     @answer = @question.answers.create(answer_params.merge(user: current_user))
   end
 
   def update
-    @answer = Answer.find(params[:id])
     @answer.update(answer_params)
     @question = @answer.question
   end
 
   def destroy
-    @answer = Answer.find(params[:id])
     @answer.destroy if current_user.author_of?(@answer)
   end
 
   def accept
-    @answer = Answer.find(params[:id])
     @question = @answer.question
     @answer.mark_as_accepted
   end
 
   private
 
-  def set_question
-    @question = Question.find(params[:question_id])    
+  def set_answer
+    @answer = Answer.find(params[:id])
   end
 
   def answer_params
