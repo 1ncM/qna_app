@@ -39,15 +39,16 @@ RSpec.describe AnswersController, type: :controller do
 
       before do
         @accepted = @answer.accepted
-        xhr :get, :accept, params: { id: @answer.id, question_id: @question.id, format: :js }
+        get :accept, xhr: true, params: { id: @answer.id, question_id: @question.id, format: :js }
       end
 
       it 'assigns the requested answer to @answer' do
         expect(assigns(:answer)).to eq @answer
       end
 
-      it 'render create template' do
-
+      it 'change answer accepted status' do
+        @answer.reload
+        expect(@answer.accepted).to eq !@accepted
       end
     end
 
