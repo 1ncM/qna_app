@@ -52,11 +52,14 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
 
-    context 'with invalid attributes' do
-      it 'does not save the new answer in the database' do
-      end
-
-      it 'render create template' do
+    context 'Non-author of question' do
+      it 'can not change the accepted status of answer' do
+        sign_out(@user)
+        sign_in(create(:user))
+        accepted = @answer.accepted
+        get :accept, xhr: true, params: { id: @answer.id, question_id: @answer.question.id, format: :js }
+        @answer.reload
+        expect(@answer.accepted).to eq accepted
       end      
     end
   end
