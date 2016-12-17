@@ -24,22 +24,49 @@ feature 'Select Best Answer', %q{
       visit question_path(@question)
       expect(page).to have_css('.accept-link', count: 3)
       expect(page).to_not have_css('.accepted-link')
-      first(:xpath, '//*[@class="accept-link"]').click
+      find('.answers').first(:link, "Accept").click
       expect(page).to have_css('.accept-link', count: 2)
       expect(page).to have_css('.accepted-link', count: 1)
     end
 
     scenario 'can unmark accepted answer', js: true do
-
+      @answer.first.mark_as_accepted
+      visit question_path(@question)
+      expect(page).to have_css('.accept-link', count: 2)
+      expect(page).to have_css('.accepted-link')
+      find(:xpath, '//*[@class="accepted-link"]').click
+      expect(page).to have_css('.accept-link', count: 3)
     end
 
     scenario 'accepted answer displayd first', js: true do
-
+      visit question_path(@question)
+      within '.answers' do
+        expect(page).to have_css('.accept-link', count: 3)
+        expect(page).to_not have_css('.accepted-link')
+        first_before = first('.answer').inspect
+        all(:xpath, '//*[@class="accept-link"]')[1].click
+        sleep(2)
+        first_after = first('.answer').inspect
+        expect(first_after).to_not eq first_before
+      end
     end
   end
 
   describe 'Non-autor of the question' do
-
+    before do
+      @answer = create(:answer)
+      sign_in(create(:user))
+    end
+     scenario 'can not see accept answer link' do
+       visit question_path(@answer.question)
+       expect(page).to_not have_css('.accept-link')
+     end
+     scenario 'can see accepted mark' do
+       @answer.mark_as_accepted
+       sign_out
+       visit question_path(@answer.question)
+       expect(page).to have_content("Accepted")
+     end
   end 
 
 end

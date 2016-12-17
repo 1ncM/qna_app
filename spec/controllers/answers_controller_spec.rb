@@ -57,7 +57,7 @@ RSpec.describe AnswersController, type: :controller do
         sign_out(@user)
         sign_in(create(:user))
         accepted = @answer.accepted
-        get :accept, xhr: true, params: { id: @answer.id, question_id: @answer.question.id, format: :js }
+        get :accept, xhr: true, params: { id: @answer.id, question_id: @answer.question.id, format: :js } 
         @answer.reload
         expect(@answer.accepted).to eq accepted
       end      

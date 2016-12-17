@@ -17,10 +17,8 @@ class AnswersController < ApplicationController
   end
 
   def accept
-    if current_user.author_of?(@answer)
-      @question = @answer.question
-      @answer.mark_as_accepted
-    end
+    @question = @answer.question
+    @answer.mark_as_accepted if current_user.author_of?(@question)
   end
 
   private

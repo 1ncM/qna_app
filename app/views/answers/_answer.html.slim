@@ -15,8 +15,8 @@
       br
     - if user_signed_in? && current_user.author_of?(answer.question)  
       - if answer.accepted?
-        = link_to('Accepted', accept_answer_path(answer), remote: true, class: 'accepted-link')
+        = link_to('Accepted', accept_answer_path(answer), class: 'accepted-link', remote: true)
       - else
-        = link_to('Accept', accept_answer_path(answer), remote: true, class: 'accept-link')
+        = link_to('Accept', accept_answer_path(answer), class: 'accept-link', remote: true)
     - elsif answer.accepted?
-      = text_tag 'Accepted'
+      = 'Accepted'
