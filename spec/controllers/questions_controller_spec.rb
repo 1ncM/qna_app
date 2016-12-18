@@ -89,7 +89,8 @@ RSpec.describe QuestionsController, type: :controller do
 
   describe 'PATCH #update' do
     sign_in_user
-
+    let!(:question) { create(:question, user: @user) }
+    
     context 'with valid attributes' do
       it 'assigns the requested question to @question' do
         patch :update, params: { id: question, question: attributes_for(:question), format: :js }

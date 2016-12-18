@@ -9,7 +9,7 @@ class Answer < ApplicationRecord
     Answer.transaction do
       question.answers.update_all(accepted:false)
       raise ActiveRecord::Rollback unless question.answers.where(accepted: true).first.nil?
-      update(accepted:true)
+      update!(accepted:true)
     end
   end
 end

@@ -74,18 +74,18 @@ RSpec.describe AnswersController, type: :controller do
       context 'with valid attributes' do
 
         it 'assings the requested answer to @answer' do
-          patch :update, params: { id: answer, answer: attributes_for(:answer), question_id: question, user_id: @user, format: :js }
+          patch :update, params: { id: answer, answer: attributes_for(:answer), question_id: question, format: :js }
           expect(assigns(:answer)).to eq answer
         end
 
         it 'changes answer attributes' do
-          patch :update, params: { id: answer, answer: { body: "other answer" }, question_id: question, user_id: @user, format: :js }
+          patch :update, params: { id: answer, answer: { body: "other answer" }, question_id: question, format: :js }
           answer.reload
           expect(answer.body).to eq "other answer"
         end
 
         it 'render update template' do
-          patch :update, params: { id: answer, answer: attributes_for(:answer), question_id: question, user_id: @user, format: :js }
+          patch :update, params: { id: answer, answer: attributes_for(:answer), question_id: question, format: :js }
           expect(response).to render_template :update
         end
 
@@ -94,22 +94,46 @@ RSpec.describe AnswersController, type: :controller do
       context 'with invalid attributes' do
 
         it 'assings the requested answer to @answer' do
-          patch :update, params: { id: answer, answer: attributes_for(:answer), question_id: question, user_id: @user, format: :js }
+          patch :update, params: { id: answer, answer: attributes_for(:answer), question_id: question, format: :js }
           expect(assigns(:answer)).to eq answer
         end
 
         it 'changes answer attributes' do
           body = answer.body
-          patch :update, params: { id: answer, answer: attributes_for(:invalid_answer), question_id: question, user_id: @user, format: :js }
+          patch :update, params: { id: answer, answer: attributes_for(:invalid_answer), question_id: question, format: :js }
           answer.reload
           expect(answer.body).to eq body
         end
 
         it 'render update template' do
-          patch :update, params: { id: answer, answer: attributes_for(:answer), question_id: question, user_id: @user, format: :js }
+          patch :update, params: { id: answer, answer: attributes_for(:answer), question_id: question, format: :js }
           expect(response).to render_template :update
         end
       end
+
+    end
+
+    describe 'Non-author try update answer other user' do
+      sign_in_user
+      let!(:question) { create(:question) }
+      let!(:answer) { create(:answer, question: question, user: create(:user))}
+
+        it 'assings the requested answer to @answer' do
+          patch :update, params: { id: answer, answer: attributes_for(:answer), question_id: question, format: :js }
+          expect(assigns(:answer)).to eq answer
+        end
+
+        it 'try changes answer attributes' do
+          old_body = answer.body
+          patch :update, params: { id: answer, answer: { body: "other answer" }, question_id: question, format: :js }
+          answer.reload
+          expect(answer.body).to eq old_body
+        end
+
+        it 'render update template' do
+          patch :update, params: { id: answer, answer: attributes_for(:answer), question_id: question, format: :js }
+          expect(response).to render_template :update
+        end
 
     end
 

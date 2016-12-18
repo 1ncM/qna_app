@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :destroy]
+  before_action :authenticate_user!, only: [:create, :destroy, :update]
   before_action :set_answer, only: [:update, :destroy, :accept]
 
   def create
@@ -8,7 +8,7 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @answer.update(answer_params)
+    @answer.update(answer_params) if current_user.author_of?(@answer)
     @question = @answer.question
   end
 
